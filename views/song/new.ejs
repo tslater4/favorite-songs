@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New song</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <h1>Add a new song to the favorites</h1>
+    <form action="/users/<%= userId %>/songs" method="post">
+        <label for="name">Song Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="artist">Artist:</label>
+        <input type="string" id="artist" name="artist" required>
+        
+        <input type="submit" value="Add song">
+    </form>
+</body>
+</html>

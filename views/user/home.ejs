@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookbook</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <h1>Welcome, <%= user.username %>! This is your Cookbook.</h1>
+    <h2>List of songs in the favorites:</h2>
+    <% if (user.favorites.length > 0) { %>
+        <ul>
+            <% user.favorites.forEach(song => { %>
+                <li><a href="/users/<%= user._id %>/songs/<%= song._id %>"><%= song.name %> - <%= song.artist %></a></li>
+            <% }) %>
+        </ul>
+        <% } else { %>
+            <p>Your favorites is empty.</p>
+    <% } %>
+    <a href="/users/<%= user._id %>/songs/new">Add song to favorites</a>
+</body>
+</html>
