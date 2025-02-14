@@ -3,11 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cookbook</title>
+    <title>Favorites</title>
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-    <h1>Welcome, <%= user.username %>! This is your Cookbook.</h1>
+    <nav>
+        <a href="/">Back to Home Page</a>
+        <a href="/auth/signout">Sign Out</a>
+        </nav>
+    <h1>Welcome, <%= user.username %>! This is your Favorite Songs List.</h1>
     <h2>List of songs in the favorites:</h2>
     <% if (user.favorites.length > 0) { %>
         <ul>

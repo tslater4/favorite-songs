@@ -27,6 +27,7 @@ app.use(methodOverride('_method'));
 
 app.get('/', (req, res) => {
     const user = req.session.user;
+    const userId = req.params.id;
     res.render('index.ejs', { user });
 });
 

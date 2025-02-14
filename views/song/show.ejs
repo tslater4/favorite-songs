@@ -7,13 +7,17 @@
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
+    <nav>
+        <a href="/">Back to Home Page</a>
+        <a href="/auth/signout">Sign Out</a>
+        </nav>
     <h1>Song Details</h1>
 
     <h2>Name: <%= song.name %></h2>
     <h3>Artist: <%= song.artist %></h3>
 
-    <a href="/users/<%= userId %>/songs/<%= song._id %>/edit">Edit song</a>
     <form action="/users/<%= userId %>/songs/<%= song._id %>?_method=DELETE" method="post">
+    <a href="/users/<%= userId %>/songs/<%= song._id %>/edit">Edit song</a>
         <button type="submit">Delete Song</button>
     </form>
     <a href="/users/<%= userId %>">Back to List</a>

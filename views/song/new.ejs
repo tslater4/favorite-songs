@@ -6,7 +6,11 @@
     <title>New song</title>
     <link rel="stylesheet" href="/css/styles.css">
 </head>
-<body>
+<body>    
+    <nav>
+    <a href="/">Back to Home Page</a>
+    <a href="/auth/signout">Sign Out</a>
+    </nav>
     <h1>Add a new song to the favorites</h1>
     <form action="/users/<%= userId %>/songs" method="post">
         <label for="name">Song Name:</label>
