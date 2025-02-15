@@ -10,8 +10,6 @@ Next Steps: Song Links, Comments (maybe ?), Heavier CSS Stylization
 Planning Materials: 
   https://trello.com/b/CgnN49o1/module-2-project-planning
   
-Technologies Used: 
-
 
 <h1>DEPLOYMENT</h1>
 https://favorite-songs-0kjc.onrender.com
