@@ -13,25 +13,31 @@ router.get('/signin', (req, res) => {
 });
 
 router.post('/signup', async (req, res) => {
-try {
+    try {
         const username = req.body.username;
-       const existingUser = await User.findOne({ username });
-       if (existingUser) {
-        return res.send('username already exists.');
-       }
-       const password = req.body.password;
-       const confirmPassword = req.body.confirmPassword;
-        if (password !== confirmPassword) {
-            return res.send('passwords do not match.');
+        const existingUser = await User.findOne({ username });
+        if (existingUser) {
+            return res.send('Username already exists.');
         }
-        const hashedPassword = await bcrypt.hashSync(password, 10);
-    
-        await User.create({ username, password: hashedPassword });
-        res.redirect('/auth/signin');
-} catch (error) {
-    console.log(error);
-    res.redirect('/error');
-}
+        const password = req.body.password;
+        const confirmPassword = req.body.confirmPassword;
+        if (password !== confirmPassword) {
+            return res.send('Passwords do not match.');
+        }
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const newUser = await User.create({ username, password: hashedPassword });
+
+        // Store the user's ID in the session
+        req.session.user = {
+            id: newUser._id,
+            username: newUser.username
+        };
+
+        res.redirect(`/users/${newUser._id}`);
+    } catch (error) {
+        console.log(error);
+        res.redirect('/error');
+    }
 });
 
 router.post('/signin', async (req, res) => {

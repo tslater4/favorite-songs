@@ -6,8 +6,15 @@ router.get('/:id', async (req, res) => {
     try {
         const userId = req.params.id;
         const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).send('User not found');
+        }
 
-        res.render('user/home.ejs', { user });
+        // Pass the logged-in user's ID and username to the view
+        const loggedInUserId = req.session.user.id;
+        const loggedInUsername = req.session.user.username;
+
+        res.render('user/home.ejs', { user, loggedInUserId, loggedInUsername });
     } catch (error) {
         console.log(error);
         res.redirect('/error');

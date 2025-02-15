@@ -8,20 +8,32 @@
 </head>
 <body>
     <nav>
+        <a href="/accounts">View All Users</a>
         <a href="/">Back to Home Page</a>
         <a href="/auth/signout">Sign Out</a>
-        </nav>
-    <h1>Welcome, <%= user.username %>! This is your Favorite Songs List.</h1>
-    <h2>List of songs in the favorites:</h2>
+    </nav>
+    <% if (user._id.toString() === loggedInUserId.toString()) { %>
+        <h1>Welcome, <%= user.username %>! This is your Favorite Songs List.</h1>
+    <% } else { %>
+        <h1>Welcome to the favorite songs of <%= user.username %>.</h1>
+    <% } %>
+    <% if (user._id.toString() === loggedInUserId.toString()) { %>
+        <h2>List of songs in your favorites:</h2>
+        <% } else { %>
+            <h2>List of songs in their favorites:</h2>
+        <% } %>
+    
     <% if (user.favorites.length > 0) { %>
         <ul>
             <% user.favorites.forEach(song => { %>
                 <li><a href="/users/<%= user._id %>/songs/<%= song._id %>"><%= song.name %> - <%= song.artist %></a></li>
             <% }) %>
         </ul>
-        <% } else { %>
-            <p>Your favorites is empty.</p>
+    <% } else { %>
+        <p>Favorites list is empty.</p>
     <% } %>
-    <a href="/users/<%= user._id %>/songs/new">Add song to favorites</a>
+    <% if (user._id.toString() === loggedInUserId.toString()) { %>
+        <a href="/users/<%= user._id %>/songs/new">Add song to favorites</a>
+    <% } %>
 </body>
 </html>

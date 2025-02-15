@@ -35,9 +35,22 @@ app.get('/error', (req, res) => {
     res.render('error.ejs');
 });
 
+app.get('/accounts', async (req, res) => {
+    try {
+        if (!req.session.user) {
+            return res.redirect('/auth/signin');
+        }
+        const users = await User.find({});
+        res.render('accounts.ejs', { users });
+    } catch (error) {
+        console.log(error);
+        res.redirect('/error');
+    }
+});
+
 // middlewear to prevent access to routes as a guest
 const isSignedIn = require('./middlewear/is-signed-in.js');
-// app.use(isSignedIn);
+app.use(isSignedIn);
 
 const authController = require('./controllers/auth.js');
 app.use('/auth', authController);

@@ -33,3 +33,9 @@ button {
     border-radius: 5px;
     cursor: pointer;
 }
+
+nav {
+    display: flex;
+    gap: 10px;
+    font-size: 24px;
+}

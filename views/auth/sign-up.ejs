@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="/css/auth.css">
 </head>
 <body>
+    <nav>
+        <a href="/">Back to Home Page</a>
+    </nav>
     <h2>Sign Up</h2>
     <form action="/auth/signup" method="post">
         <div class="input-group">
@@ -21,8 +24,8 @@
             <label for="confirmPassword">Confirm Password: </label>
             <input type="password" id="confirmPassword" name="confirmPassword" required>
         </div>
-
         <button type="submit">Sign Up</button>
+        <a href="/auth/signin">Already a registered user?</a>
     </form>
 </body>
 </html>
