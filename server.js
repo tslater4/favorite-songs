@@ -11,9 +11,7 @@ const User = require('./models/user.js');
 
 mongoose.connect(process.env.MONGODB_URI)
 
-mongoose.connection.on('connected', () => {
-    console.log(`connected to mongoDB ${mongoose.connection.name}`);
-});
+
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
@@ -43,7 +41,6 @@ app.get('/accounts', async (req, res) => {
         const users = await User.find({});
         res.render('accounts.ejs', { users });
     } catch (error) {
-        console.log(error);
         res.redirect('/error');
     }
 });
@@ -59,6 +56,4 @@ app.use('/auth', authController);
 const userController = require('./controllers/user.js');
 app.use('/users', userController);
 
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+app.listen(PORT);

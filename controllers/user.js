@@ -16,7 +16,6 @@ router.get('/:id', async (req, res) => {
 
         res.render('user/home.ejs', { user, loggedInUserId, loggedInUsername });
     } catch (error) {
-        console.log(error);
         res.redirect('/error');
     }
 });
@@ -26,7 +25,6 @@ router.get('/:id/songs/new', async (req, res) => {
 }); 
 
 router.get('/:id/songs/:songId', async (req, res) => {
-    console.log("attempting to open individual song")
     const userId = req.params.id;
     const songId = req.params.songId;
     const user = await User.findById(userId);

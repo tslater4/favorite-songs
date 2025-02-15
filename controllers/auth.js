@@ -4,7 +4,6 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/signup', (req, res) => {
-    console.log('signup');
     res.render('auth/sign-up.ejs');
 });
 
@@ -35,7 +34,6 @@ router.post('/signup', async (req, res) => {
 
         res.redirect(`/users/${newUser._id}`);
     } catch (error) {
-        console.log(error);
         res.redirect('/error');
     }
 });
@@ -58,7 +56,6 @@ router.post('/signin', async (req, res) => {
         };
         res.redirect(`/users/${existingUser._id}`);
     } catch (error) {
-        console.log(error);
         res.redirect('/error');
     }
 });
