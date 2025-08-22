@@ -1,6 +1,7 @@
 # Favorite Songs Collection
 
 A personalized music collection app where users can save, organize, and share their favorite songs with links to streaming platforms.
+Timeframe: 5 days for functionality, CSS done afterwards in 1 day. 
 
 ## Features
 
