@@ -3,24 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Song Details</title>
+    <title>Song Details - Favorite Songs</title>
     <link rel="stylesheet" href="/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <nav>
-        <a href="/accounts">View All Users</a>
-        <a href="/">Back to Home Page</a>
-        <a href="/auth/signout">Sign Out</a>
+        <div>
+            <a href="/" class="title-link" style="text-decoration: none;">
+                <h3 style="margin: 0; color: var(--primary-color);">Favorite Songs</h3>
+            </a>
+        </div>
+        <div style="display: flex; gap: 1rem;">
+            <a href="/accounts">View All Users</a>
+            <a href="/">Home</a>
+            <a href="/auth/signout">Sign Out</a>
+        </div>
     </nav>
-    <h1>Song Details</h1>
 
-    <h2>Name: <%= song.name %></h2>
-    <h3>Artist: <%= song.artist %></h3>
+    <div class="container">
+        <div class="main-content fade-in">
+            <div class="card" style="max-width: 500px; margin: 2rem auto; text-align: center;">
+                <h1 style="margin-bottom: 2rem;">Song Details</h1>
+                
+                <div style="margin-bottom: 2rem;">
+                    <h2 style="color: var(--primary-color); margin-bottom: 0.5rem;"><%= song.name %></h2>
+                    <h3 style="color: var(--text-light); margin-bottom: 1rem;">by <%= song.artist %></h3>
+                    
+                    <% if (song.url) { %>
+                        <div style="margin-bottom: 1rem;">
+                            <a href="<%= song.url %>" target="_blank" class="btn" style="display: inline-block; padding: 0.5rem 1rem; font-size: 0.9rem;">
+                                Listen Now
+                            </a>
+                        </div>
+                    <% } %>
+                </div>
 
-    <form action="/users/<%= userId %>/songs/<%= song._id %>?_method=DELETE" method="post">
-    <a href="/users/<%= userId %>/songs/<%= song._id %>/edit">Edit song</a>
-        <button type="submit">Delete Song</button>
-    </form>
-    <a href="/users/<%= userId %>">Back to List</a>
+                <div class="action-buttons" style="flex-direction: column; gap: 1rem;">
+                    <a href="/users/<%= userId %>/songs/<%= song._id %>/edit" class="btn">Edit Song</a>
+                    
+                    <form action="/users/<%= userId %>/songs/<%= song._id %>?_method=DELETE" method="post" style="margin: 0;">
+                        <button type="submit" class="btn btn-secondary" onclick="return confirm('Are you sure you want to delete this song?')">Delete Song</button>
+                    </form>
+                    
+                    <a href="/users/<%= userId %>" class="btn btn-secondary">Back to Collection</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

@@ -3,13 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Error</title>
+    <title>Error - Favorite Songs</title>
     <link rel="stylesheet" href="/css/styles.css">
-
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>error</h1>
-    <p>an error has occured while processing your request</p>
-    <a href="/">Return to Homepage</a>
+    <nav>
+        <div>
+            <a href="/" class="title-link" style="text-decoration: none;">
+                <h3 style="margin: 0; color: var(--primary-color);">Favorite Songs</h3>
+            </a>
+        </div>
+        <div style="display: flex; gap: 1rem;">
+            <a href="/">Home</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="main-content fade-in">
+            <div class="card" style="text-align: center; margin: 2rem 0;">
+                <h1>Oops! Something went wrong</h1>
+                <p style="color: var(--text-light);">An error has occurred while processing your request</p>
+                <div class="action-buttons">
+                    <a href="/" class="btn">Return to Homepage</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

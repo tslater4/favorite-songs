@@ -3,24 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
+    <title>Favorite Songs - Music Collector</title>
     <link rel="stylesheet" href="/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <nav>
-        <a href="/accounts">View All Users</a>
-        <% if (user) { %>
-        <a href="/auth/signout">Sign Out</a>
-        <% } %>
+        <div>
+            <a href="/" class="title-link" style="text-decoration: none;">
+                <h3 style="margin: 0; color: var(--primary-color);">Favorite Songs</h3>
+            </a>
+        </div>
+        <div style="display: flex; gap: 1rem;">
+            <a href="/accounts">View All Users</a>
+            <% if (user) { %>
+            <a href="/auth/signout">Sign Out</a>
+            <% } %>
+        </div>
     </nav>
-    <h1>Welcome to Favorite Songs, <%= user ? user.username : 'Guest'%>.</h1>
 
-    <% if (!user) { %>
-        <p> Please sign in to build a list. </p>
-        <a href="/auth/signin">Sign In</a>
-        <a href="/auth/signup">Sign Up</a>
-        <% } else { %>
-            <a href="/users/<%= user.id %>"> View your Favorites </a>
-        <% } %>
+    <div class="container">
+        <div class="main-content fade-in">
+            <div class="welcome-message">
+                <% if (user) { %>
+                    <h1>Welcome to Favorite Songs, <%= user.username %>!</h1>
+                    <p>Discover, collect, and share your favorite music with the community</p>
+                <% } else { %>
+                    <h1>Welcome to Favorite Songs!</h1>
+                    <p>Please log in or sign up to start building your personalized music collection.</p>
+                <% } %>
+            </div>
+
+            <% if (!user) { %>
+                <div class="action-buttons">
+                    <a href="/auth/signin" class="btn">Sign In</a>
+                    <a href="/auth/signup" class="btn btn-secondary">Sign Up</a>
+                </div>
+            <% } else { %>
+                <div class="action-buttons">
+                    <a href="/users/<%= user.id %>" class="btn">View Your Favorites</a>
+                </div>
+            <% } %>
+        </div>
+    </div>
 </body>
 </html>

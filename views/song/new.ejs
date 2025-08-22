@@ -3,24 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New Song</title>
+    <title>Add New Song - Favorite Songs</title>
     <link rel="stylesheet" href="/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>    
     <nav>
-        <a href="/accounts">View All Users</a>
-        <a href="/">Back to Home Page</a>
-        <a href="/auth/signout">Sign Out</a>
+        <div>
+            <a href="/" class="title-link" style="text-decoration: none;">
+                <h3 style="margin: 0; color: var(--primary-color);">Favorite Songs</h3>
+            </a>
+        </div>
+        <div style="display: flex; gap: 1rem;">
+            <a href="/accounts">View All Users</a>
+            <a href="/">Home</a>
+            <a href="/auth/signout">Sign Out</a>
+        </div>
     </nav>
-    <h1>Add a new song to the favorites</h1>
-    <form action="/users/<%= userId %>/songs" method="post">
-        <label for="name">Song Name:</label>
-        <input type="text" id="name" name="name" required>
 
-        <label for="artist">Artist:</label>
-        <input type="string" id="artist" name="artist" required>
-        
-        <input type="submit" value="Add song">
-    </form>
+    <div class="container">
+        <div class="main-content fade-in">
+            <div class="card" style="max-width: 500px; margin: 2rem auto;">
+                <h1 style="text-align: center; margin-bottom: 2rem;">Add a New Song</h1>
+                
+                <% if (typeof error !== 'undefined' && error) { %>
+                    <div class="error-message" style="background: #fed7d7; color: #e53e3e; padding: 0.75rem 1rem; border-radius: var(--border-radius); border-left: 4px solid #e53e3e; margin-bottom: 1rem; font-size: 0.9rem;">
+                        <%= error %>
+                    </div>
+                <% } %>
+                
+                <form action="/users/<%= userId %>/songs" method="post" style="display: flex; flex-direction: column; gap: 1.5rem;">
+                    <div class="input-group">
+                        <label for="name">Song Name</label>
+                        <input type="text" id="name" name="name" placeholder="Enter the song name" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="artist">Artist</label>
+                        <input type="text" id="artist" name="artist" placeholder="Enter the artist name" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="url">Song Link (Optional)</label>
+                        <input type="url" id="url" name="url" placeholder="YouTube, Spotify, SoundCloud, etc.">
+                        <small style="color: var(--text-light); font-size: 0.8rem;">
+                            Supported platforms: YouTube, Spotify, SoundCloud, Bandcamp, Apple Music, Tidal, Deezer
+                        </small>
+                    </div>
+                    
+                    <button type="submit">Add Song</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

@@ -10,8 +10,12 @@ const session = require('express-session');
 const User = require('./models/user.js');
 
 mongoose.connect(process.env.MONGODB_URI)
-
-
+    .then(() => {
+        console.log('Connected to MongoDB successfully!');
+    })
+    .catch((error) => {
+        console.error('MongoDB connection error:', error);
+    });
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));

@@ -3,14 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Users</title>
+    <title>All Users - Favorite Songs</title>
     <link rel="stylesheet" href="/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <nav>
-        <a href="/accounts">View All Users</a>
-        <a href="/">Back to Home Page</a>
-        <a href="/auth/signout">Sign Out</a>
+        <div>
+            <a href="/" class="title-link" style="text-decoration: none;">
+                <h3 style="margin: 0; color: var(--primary-color);">Favorite Songs</h3>
+            </a>
+        </div>
+        <div style="display: flex; gap: 1rem;">
+            <a href="/accounts">View All Users</a>
+            <a href="/">Home</a>
+            <a href="/auth/signout">Sign Out</a>
+        </div>
     </nav>
     <% if (users.length > 0) { %>
         <ul>

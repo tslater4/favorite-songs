@@ -21,7 +21,8 @@ router.get('/:id', async (req, res) => {
 });
 router.get('/:id/songs/new', async (req, res) => {
     const userId = req.params.id;
-    res.render('song/new.ejs', { userId });
+    const error = req.query.error;
+    res.render('song/new.ejs', { userId, error });
 }); 
 
 router.get('/:id/songs/:songId', async (req, res) => {
@@ -35,41 +36,66 @@ router.get('/:id/songs/:songId', async (req, res) => {
 router.get('/:id/songs/:songId/edit', async (req, res) => {
     const userId = req.params.id;
     const songId = req.params.songId;
+    const error = req.query.error;
 
     const user = await User.findById(userId);
     const song = user.favorites.id(songId);
 
-    res.render('song/edit.ejs', { userId, song });
+    res.render('song/edit.ejs', { userId, song, error });
 });
 
 router.post('/:id/songs', async (req, res) => {
-    const userId = req.params.id;
-    const name = req.body.name;
-    const artist = req.body.artist;
-    
-    const user = await User.findById(userId);
-    user.favorites.push({ name, artist });
-    
-    await user.save();
-    
-    res.redirect(`/users/${userId}`);
+    try {
+        const userId = req.params.id;
+        const name = req.body.name;
+        const artist = req.body.artist;
+        const url = req.body.url;
+        
+        const user = await User.findById(userId);
+        user.favorites.push({ name, artist, url });
+        
+        await user.save();
+        
+        res.redirect(`/users/${userId}`);
+    } catch (error) {
+        console.error('Error adding song:', error);
+        if (error.name === 'ValidationError') {
+            // Redirect back to the form with error message
+            const userId = req.params.id;
+            return res.redirect(`/users/${userId}/songs/new?error=Invalid URL. Please use a link from YouTube, Spotify, SoundCloud, Bandcamp, Apple Music, Tidal, or Deezer.`);
+        }
+        res.redirect('/error');
+    }
 });
 router.put('/:id/songs/:songId', async (req, res) => {
-    const userId = req.params.id;
-    const songId = req.params.songId;
-    const newName = req.body.name;
-    const newArtist = req.body.artist;
-  
-    const user = await User.findById(userId);
-    const song = user.favorites.id(songId);
-  
-    song.name = newName
-    song.artist = newArtist;
-  
-    await user.save();
-  
-    res.redirect(`/users/${userId}/songs/${songId}`);
-  })
+    try {
+        const userId = req.params.id;
+        const songId = req.params.songId;
+        const newName = req.body.name;
+        const newArtist = req.body.artist;
+        const newUrl = req.body.url;
+      
+        const user = await User.findById(userId);
+        const song = user.favorites.id(songId);
+      
+        song.name = newName;
+        song.artist = newArtist;
+        song.url = newUrl;
+      
+        await user.save();
+      
+        res.redirect(`/users/${userId}/songs/${songId}`);
+    } catch (error) {
+        console.error('Error updating song:', error);
+        if (error.name === 'ValidationError') {
+            // Redirect back to the edit form with error message
+            const userId = req.params.id;
+            const songId = req.params.songId;
+            return res.redirect(`/users/${userId}/songs/${songId}/edit?error=Invalid URL. Please use a link from YouTube, Spotify, SoundCloud, Bandcamp, Apple Music, Tidal, or Deezer.`);
+        }
+        res.redirect('/error');
+    }
+})
 
 router.delete('/:id/songs/:songId', async (req, res) => {
     const userId =  req.params.id;

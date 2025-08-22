@@ -3,37 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Favorites</title>
+    <title>Favorites - Favorite Songs</title>
     <link rel="stylesheet" href="/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <nav>
-        <a href="/accounts">View All Users</a>
-        <a href="/">Back to Home Page</a>
-        <a href="/auth/signout">Sign Out</a>
+        <div>
+            <a href="/" class="title-link" style="text-decoration: none;">
+                <h3 style="margin: 0; color: var(--primary-color);">Favorite Songs</h3>
+            </a>
+        </div>
+        <div style="display: flex; gap: 1rem;">
+            <a href="/accounts">View All Users</a>
+            <a href="/">Home</a>
+            <a href="/auth/signout">Sign Out</a>
+        </div>
     </nav>
-    <% if (user._id.toString() === loggedInUserId.toString()) { %>
-        <h1>Welcome, <%= user.username %>! This is your Favorite Songs List.</h1>
-    <% } else { %>
-        <h1>Welcome to the favorite songs of <%= user.username %>.</h1>
-    <% } %>
-    <% if (user._id.toString() === loggedInUserId.toString()) { %>
-        <h2>List of songs in your favorites:</h2>
-        <% } else { %>
-            <h2>List of songs in their favorites:</h2>
-        <% } %>
-    
-    <% if (user.favorites.length > 0) { %>
-        <ul>
-            <% user.favorites.forEach(song => { %>
-                <li><a href="/users/<%= user._id %>/songs/<%= song._id %>"><%= song.name %> - <%= song.artist %></a></li>
-            <% }) %>
-        </ul>
-    <% } else { %>
-        <p>Favorites list is empty.</p>
-    <% } %>
-    <% if (user._id.toString() === loggedInUserId.toString()) { %>
-        <a href="/users/<%= user._id %>/songs/new">Add song to favorites</a>
-    <% } %>
+
+    <div class="container">
+        <div class="main-content fade-in">
+            <% if (user._id.toString() === loggedInUserId.toString()) { %>
+                <div class="welcome-message">
+                    <h1>Welcome, <%= user.username %>!</h1>
+                    <p>This is your personal music collection</p>
+                </div>
+            <% } else { %>
+                <div class="welcome-message">
+                    <h1><%= user.username %>'s Collection</h1>
+                    <p>Discover their favorite music</p>
+                </div>
+            <% } %>
+            
+            <% if (user.favorites.length > 0) { %>
+                <div class="card" style="margin: 2rem 0;">
+                    <% if (user._id.toString() === loggedInUserId.toString()) { %>
+                        <h2 style="margin-bottom: 1.5rem; text-align: center;">Your Favorite Songs</h2>
+                    <% } else { %>
+                        <h2 style="margin-bottom: 1.5rem; text-align: center;">Their Favorite Songs</h2>
+                    <% } %>
+                    <ul>
+                        <% user.favorites.forEach(song => { %>
+                            <li class="song-item">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div style="flex: 1;">
+                                        <% if (song.url) { %>
+                                            <a href="#" onclick="visitSong('<%= song.url %>', '<%= song.name %>', '<%= song.artist %>')" class="clickable-song" style="text-decoration: none; color: inherit;">
+                                                <strong><%= song.name %></strong> by <%= song.artist %>
+                                            </a>
+                                        <% } else { %>
+                                            <span><strong><%= song.name %></strong> by <%= song.artist %></span>
+                                        <% } %>
+                                    </div>
+                                    <% if (user._id.toString() === loggedInUserId.toString()) { %>
+                                        <a href="/users/<%= user._id %>/songs/<%= song._id %>/edit" class="edit-icon" title="Edit song">
+                                            ✎
+                                        </a>
+                                    <% } %>
+                                </div>
+                            </li>
+                        <% }) %>
+                    </ul>
+                </div>
+            <% } else { %>
+                <div class="card" style="text-align: center; margin: 2rem 0;">
+                    <% if (user._id.toString() === loggedInUserId.toString()) { %>
+                        <h2 style="margin-bottom: 1rem;">Your Favorite Songs</h2>
+                        <h3>No songs yet</h3>
+                        <p style="color: var(--text-light);">
+                            Start building your collection by adding your first favorite song!
+                        </p>
+                    <% } else { %>
+                        <h2 style="margin-bottom: 1rem;">Their Favorite Songs</h2>
+                        <h3>No songs yet</h3>
+                        <p style="color: var(--text-light);">
+                            This user hasn't added any songs to their collection yet.
+                        </p>
+                    <% } %>
+                </div>
+            <% } %>
+            
+            <% if (user._id.toString() === loggedInUserId.toString()) { %>
+                <div class="action-buttons">
+                    <a href="/users/<%= user._id %>/songs/new" class="btn">Add New Song</a>
+                </div>
+            <% } %>
+        </div>
+    </div>
+
+    <script>
+        function visitSong(url, songName, artist) {
+            if (confirm(`Visit "${songName}" by ${artist}?`)) {
+                window.open(url, '_blank');
+            }
+        }
+    </script>
 </body>
 </html>
