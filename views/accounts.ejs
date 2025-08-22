@@ -17,7 +17,11 @@
         <div style="display: flex; gap: 1rem;">
             <a href="/accounts">View All Users</a>
             <a href="/">Home</a>
-            <a href="/auth/signout">Sign Out</a>
+            <% if (user) { %>
+                <a href="/auth/signout">Sign Out</a>
+            <% } else { %>
+                <a href="/auth/signin">Sign In</a>
+            <% } %>
         </div>
     </nav>
     <% if (users.length > 0) { %>

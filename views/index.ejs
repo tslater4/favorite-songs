@@ -17,7 +17,9 @@
         <div style="display: flex; gap: 1rem;">
             <a href="/accounts">View All Users</a>
             <% if (user) { %>
-            <a href="/auth/signout">Sign Out</a>
+                <a href="/auth/signout">Sign Out</a>
+            <% } else { %>
+                <a href="/auth/signin">Sign In</a>
             <% } %>
         </div>
     </nav>
@@ -30,7 +32,7 @@
                     <p>Discover, collect, and share your favorite music with the community</p>
                 <% } else { %>
                     <h1>Welcome to Favorite Songs!</h1>
-                    <p>Please log in or sign up to start building your personalized music collection.</p>
+                    <p>Discover and explore music collections from our community. Sign up to create your own collection!</p>
                 <% } %>
             </div>
 

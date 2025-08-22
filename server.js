@@ -39,11 +39,9 @@ app.get('/error', (req, res) => {
 
 app.get('/accounts', async (req, res) => {
     try {
-        if (!req.session.user) {
-            return res.redirect('/auth/signin');
-        }
         const users = await User.find({});
-        res.render('accounts.ejs', { users });
+        const user = req.session.user || null; // Pass user session if available
+        res.render('accounts.ejs', { users, user });
     } catch (error) {
         res.redirect('/error');
     }
